@@ -8,7 +8,6 @@
 #else 
 #define DISCORD_EXPORT __declspec(dllimport)
 #endif
-
 #else 
 #define DISCORD_EXPORT __attribute__((visibility("default")))
 #endif
@@ -40,7 +39,21 @@ typedef struct DiscordRichPresence
 
 typedef struct DiscordUser
 {
-
+	const char* USERID;
+	const char* USERNAME;
 } DiscordUser;
+
+typedef struct DiscordEventHandlers
+{
+	void (*ready)(const DiscordUser* request);
+	void (*disconnected)(int errorCode, const char* message);
+} DiscordEventHandlers;
+
+DISCORD_EXPORT void Discord_Initialise(const char* APPID, DiscordEventHandlers* EVENTHANDLERS, int AUTOREG);
+DISCORD_EXPORT void Discord_Shutdown(void);
+
+#ifdef __cplusplus 
+#endif 
+
 
 
