@@ -1,17 +1,16 @@
 #pragma once
 #include <map>
 
-typedef enum : uint32_t
+typedef enum : int32_t
 {
-	GRAND_PRIX,
-	TIME_TRIALS,
-	SOLO_VS_RACE,
-	TEAM_VS_RACE,
-	COIN_BATTLE,
-	BALLOON_BATTLE,
-} RaceType;
+	MODE_GRAND_PRIX,
+	MODE_TIME_TRIALS,
+	MODE_VS_RACE
 
-typedef enum : uint32_t
+} GameMode;
+
+typedef struct
 {
+	uint32_t courseID;
 
-};
+} Settings;
