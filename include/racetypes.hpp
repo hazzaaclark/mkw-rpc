@@ -1,7 +1,7 @@
 #pragma once
 #include <map>
 
-enum type
+typedef enum : uint32_t
 {
 	GRAND_PRIX,
 	TIME_TRIALS,
@@ -9,4 +9,9 @@ enum type
 	TEAM_VS_RACE,
 	COIN_BATTLE,
 	BALLOON_BATTLE,
+} RaceType;
+
+typedef enum : uint32_t
+{
+
 };
