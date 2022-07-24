@@ -41,5 +41,4 @@ std::map<std::string, const char*> COURSES =
 	{ "DS PEACH GARDENS", "old_garden_ds.szs" },	
 	{ "GCN DK MOUNTAIN", "old_donkey_gc.szs" },
 	{ "N64 BOWSER CASTLE", "old_koopa_64.szs" },
-
 };
