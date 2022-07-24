@@ -25,8 +25,8 @@ std::map<std::string, const char*> COURSES =
 
 	/** RETRO COURSES **/
 
-	{ "", "" },
-	{ "", "" },
+	{ "GCN PEACH BEACH", "old_peach_gc.szs" },
+	{ "DS Yoshi Falls", "old_falls_ds.szs" },
 	{ "", "" },
 	{ "", "" },
 	{ "", "" },
