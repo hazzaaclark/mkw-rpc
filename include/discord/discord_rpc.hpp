@@ -1,27 +1,19 @@
 #pragma once
+#include <Windows.h>
 #include <stdint.h>
 
-#if defined(DISCORD_LIB)
-#if defined(_WIN32)
+/** DEFINES **/
+
 #if defined(DISCORD_SDK)
-#define DISCORD_EXPORT __declspec(dllexport)
+#define DLLEXPORT __declspec(dllexport)
 #else 
 #define DISCORD_EXPORT __declspec(dllimport)
-#endif
-#else 
-#define DISCORD_EXPORT __attribute__((visibility("default")))
-#endif
-#else
 #define DISCORD_EXPORT
 #endif
 
-#ifdef  __cplusplus
-extern "C"
-{
-
-}
-#endif //  __cplusplus
-
+#define DISCORD_REPLY_NO 0
+#define DISCORD_REPLY_YES 1
+#define DISCORD_REPLY_IGNORE 2
 
 typedef struct DiscordRichPresence
 {
@@ -41,19 +33,23 @@ typedef struct DiscordUser
 {
 	const char* USERID;
 	const char* USERNAME;
+
 } DiscordUser;
 
 typedef struct DiscordEventHandlers
 {
 	void (*ready)(const DiscordUser* request);
 	void (*disconnected)(int errorCode, const char* message);
+
 } DiscordEventHandlers;
+
+/** DLL DEPENDANCIES **/
 
 DISCORD_EXPORT void Discord_Initialise(const char* APPID, DiscordEventHandlers* EVENTHANDLERS, int AUTOREG);
 DISCORD_EXPORT void Discord_Shutdown(void);
+DISCORD_EXPORT void Discord_Update(const DiscordRichPresence* RPC);
+DISCORD_EXPORT void Discord_Clear(void);
+DISCORD_EXPORT void Discord_Reponse(const char* USERID, int REPLY);
 
 #ifdef __cplusplus 
 #endif 
-
-
-
