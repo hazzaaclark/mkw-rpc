@@ -16,3 +16,11 @@ const HMODULE HANDLE_MODULE = GetModuleHandle(NULL);
 #define PROC_ADDR(libraryName, proc) \
 GetProcAddress(LoadLibrary(TEXT(libraryName)), proc)
 
+#define MEM_HOOK(returnType, callingConvention, functionName) \
+typedef returnType callingConvention functionName(__ARGS__);
+
+#define INSTALL_MEM_HOOK(functionName) \
+{ \
+      DetourTransactionBegin(); \
+      DetourUpdateThread(GetCurrentThread()); \
+}
