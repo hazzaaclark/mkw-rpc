@@ -25,3 +25,8 @@ typedef returnType callingConvention functionName(__ARGS__);
       DetourUpdateThread(GetCurrentThread()); \
       DetourTransactionCommit(); \
 }
+
+#define VTABLE_HOOK(returnType, callingConvention, className, functionName, ...) \
+	typedef returnType callingConvention functionName(className* CLASSNAME, __ARGS__); \
+	functionName* original##functionName; \
+	returnType callingConvention implOf##functionName(className* CLASSNAME, __ARGS__)
