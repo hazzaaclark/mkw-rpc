@@ -46,9 +46,25 @@ typedef returnType callingConvention functionName(__ARGS__);
 
 #define WRITE_MEMORY(location, ...) \
 	{ \
-		const char data[] = { __VA_ARGS__ }; \
+		const char data[] = { __ARGS__ }; \
 		DWORD oldProtect; \
 		VirtualProtect((void*)location, sizeof(data), PAGE_EXECUTE_READWRITE, &oldProtect); \
 		memcpy((void*)location, data, sizeof(data)); \
 		VirtualProtect((void*)location, sizeof(data), oldProtect, NULL); \
 	}
+
+#define WRITE_FUNCTION(location, func)\
+	{ \
+		DWORD oldProtect; \
+		void* address = (void*)func; \
+		VirtualProtect((void*)location, sizeof(void*), PAGE_EXECUTE_READWRITE, &oldProtect); \
+		memcpy((void*)location, &address, sizeof(void*)); \
+		VirtualProtect((void*)location, sizeof(void*), oldProtect, NULL); \
+	}
+
+#define OBJECT_FUNCTION(returnType, function, location, ...) \
+	inline returnType function(__ARGS__) \
+	{ \
+		FUNCTION_PTR(returnType, __thiscall, Base##function, location, void* FUNC_LOC, __ARGS__);\
+		return Base##function((void*)this, __ARGS__);\
+	} \
