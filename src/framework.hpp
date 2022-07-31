@@ -43,3 +43,12 @@ typedef returnType callingConvention functionName(__ARGS__);
 			VirtualProtect(addr, sizeof(void*), oldProtect, NULL); \
 		} \
 	}
+
+#define WRITE_MEMORY(location, ...) \
+	{ \
+		const char data[] = { __VA_ARGS__ }; \
+		DWORD oldProtect; \
+		VirtualProtect((void*)location, sizeof(data), PAGE_EXECUTE_READWRITE, &oldProtect); \
+		memcpy((void*)location, data, sizeof(data)); \
+		VirtualProtect((void*)location, sizeof(data), oldProtect, NULL); \
+	}
