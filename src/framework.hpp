@@ -23,4 +23,5 @@ typedef returnType callingConvention functionName(__ARGS__);
 { \
       DetourTransactionBegin(); \
       DetourUpdateThread(GetCurrentThread()); \
+      DetourTransactionCommit(); \
 }
