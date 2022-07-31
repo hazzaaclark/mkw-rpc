@@ -26,7 +26,7 @@ typedef returnType callingConvention functionName(__ARGS__);
       DetourTransactionCommit(); \
 }
 
-#define VTABLE_HOOK(returnType, callingConvention, className, functionName, ...) \
+#define CLASSTYPE_MEM_HOOK(returnType, callingConvention, className, functionName, ...) \
 	typedef returnType callingConvention functionName(className* CLASSNAME, __ARGS__); \
 	functionName* original##functionName; \
 	returnType callingConvention implOf##functionName(className* CLASSNAME, __ARGS__)
