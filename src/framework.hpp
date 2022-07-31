@@ -30,3 +30,16 @@ typedef returnType callingConvention functionName(__ARGS__);
 	typedef returnType callingConvention functionName(className* CLASSNAME, __ARGS__); \
 	functionName* original##functionName; \
 	returnType callingConvention implOf##functionName(className* CLASSNAME, __ARGS__)
+
+#define INSTALL_CLASSTYPE_MEM_HOOK(object, functionName, functionIndex) \
+	{ \
+		void** addr = &(*(void***)object)[functionIndex]; \
+		if (*addr != implOf##functionName) \
+		{ \
+			original##functionName = (functionName*)*addr; \
+			DWORD oldProtect; \
+			VirtualProtect(addr, sizeof(void*), PAGE_EXECUTE_READWRITE, &oldProtect); \
+			*addr = implOf##functionName; \
+			VirtualProtect(addr, sizeof(void*), oldProtect, NULL); \
+		} \
+	}
